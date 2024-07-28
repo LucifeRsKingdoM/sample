@@ -186,6 +186,14 @@
             }
         }
     </style>
+    <script>
+        window.onload = function() {
+            if (!sessionStorage.getItem('loadedOnce')) {
+                sessionStorage.setItem('loadedOnce', 'true');
+                location.reload();
+            }
+        };
+    </script>    
 </head>
 
 <body>
@@ -217,15 +225,6 @@
     </button>
 
     <script>
-
-         window.onload = function() {
-            if (!sessionStorage.getItem('loadedOnce')) {
-                sessionStorage.setItem('loadedOnce', 'true');
-                location.reload();
-            }
-        };
-
-        
         var SCREEN_WIDTH = window.innerWidth;
         var SCREEN_HEIGHT = window.innerHeight;
         var RADIUS = 200;
