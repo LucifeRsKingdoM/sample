@@ -168,7 +168,7 @@
 
             .text-container1 p {
                 font-size: 20px;
-                margin-left: 100px;
+                margin-left: 110px;
                 margin-top: 210px;
             }
 
@@ -185,15 +185,21 @@
                 left: 20px;
             }
         }
+
+        .welcome-alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            display: none;
+            font-size: 18px;
+            text-align: center;
+        }
     </style>
-    <script>
-        window.onload = function() {
-            if (!sessionStorage.getItem('loadedOnce')) {
-                sessionStorage.setItem('loadedOnce', 'true');
-                location.reload();
-            }
-        };
-    </script>    
 </head>
 
 <body>
@@ -220,11 +226,30 @@
         <p class="sub-text">To ---- LucifeR's KingdoM</p>
     </a>
 
+    <div class="welcome-alert" id="welcomeAlert">WELCOME</div>
+
     <button class="refresh-btn" onclick="refreshPage()">
         <i class="fas fa-sync-alt"></i>
     </button>
 
     <script>
+        window.onload = function () {
+            if (!sessionStorage.getItem('loadedOnce')) {
+                sessionStorage.setItem('loadedOnce', 'true');
+                location.reload();
+            } else {
+                setTimeout(function () {
+                    document.getElementById('welcomeAlert').style.display = 'block';
+                }, 100);
+
+                setTimeout(function () {
+                    document.getElementById('welcomeAlert').style.display = 'none';
+                }, 2100); // 2 seconds after showing the alert
+            }
+
+            init(); // Initialize canvas and particles
+        };
+
         var SCREEN_WIDTH = window.innerWidth;
         var SCREEN_HEIGHT = window.innerHeight;
         var RADIUS = 200;
@@ -255,6 +280,18 @@
             }
         }
 
+
+        function windowResizeHandler() {
+            SCREEN_WIDTH = window.innerWidth;
+            SCREEN_HEIGHT = window.innerHeight;
+
+            canvas.width = SCREEN_WIDTH;
+            canvas.height = SCREEN_HEIGHT;
+
+            // Other resizing logic, like recalculating positions or sizes of elements
+        }
+
+
         function createParticles() {
             particles = [];
             for (var i = 0; i < QUANTITY; i++) {
@@ -271,27 +308,6 @@
                 particles.push(particle);
             }
         }
-
-        window.onload = function() {
-            setTimeout(init, 100); // Slight delay to ensure layout is ready
-            windowResizeHandler(); // Ensure everything is sized correctly
-        };
-        
-        window.onresize = windowResizeHandler;
-        
-        function windowResizeHandler() {
-            SCREEN_WIDTH = window.innerWidth;
-            SCREEN_HEIGHT = window.innerHeight;
-        
-            canvas.width = SCREEN_WIDTH;
-            canvas.height = SCREEN_HEIGHT;
-        
-            // Recalculate positions or sizes if necessary
-            centerImg.style.top = `${SCREEN_HEIGHT / 2}px`;
-            centerImg.style.left = `${SCREEN_WIDTH / 2}px`;
-        }
-
-
 
         function handleMouseMove(event) {
             mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5;
@@ -360,8 +376,6 @@
         function refreshPage() {
             location.reload();
         }
-
-        window.onload = init;
     </script>
 </body>
 
