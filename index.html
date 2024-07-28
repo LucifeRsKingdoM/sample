@@ -264,6 +264,24 @@
             }
         }
 
+        window.onload = function() {
+            init(); // Initialize your canvas and other effects
+            windowResizeHandler(); // Ensure everything is sized correctly
+        };
+        
+        window.onresize = windowResizeHandler;
+
+        function windowResizeHandler() {
+            SCREEN_WIDTH = window.innerWidth;
+            SCREEN_HEIGHT = window.innerHeight;
+        
+            canvas.width = SCREEN_WIDTH;
+            canvas.height = SCREEN_HEIGHT;
+        
+            // Other resizing logic, like recalculating positions or sizes of elements
+        }
+
+
         function handleMouseMove(event) {
             mouseX = event.clientX - (window.innerWidth - SCREEN_WIDTH) * .5;
             mouseY = event.clientY - (window.innerHeight - SCREEN_HEIGHT) * .5;
